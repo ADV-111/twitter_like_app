@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>base</title>
+</head>
+<body>
+    {% block header %}
+        <span>Zalogowany jako: <strong>{{ user|upper }} </strong></span>
+        <span style="float: right"><a href="{% url 'create_user' %}">Zarejestruj</a></span>
+        <p>{% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Wyloguj</a>
+        {% else %}
+            <a href="{% url 'login' %}">Zaloguj</a>
+        {% endif %}</p>
+        <hr>
+    {% endblock %}
+    {% block content %}
+        <table>
+        {% for tweet in tweets %}
+            <tr>
+                <td>{{ tweet.content }}</td>
+            </tr>
+            <tr>
+                <td>{{ tweet.user }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+    {% endblock %}
+</body>
+</html>
